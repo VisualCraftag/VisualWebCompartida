@@ -5,7 +5,6 @@ import { ArrowUpRight, CheckCircle2, ExternalLink, FileText, Sparkles } from "lu
 import { useMemo, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { StaggerContainer, StaggerItem } from "@/components/motion-wrapper"
 import { motion } from "framer-motion"
 
 type Project = {
@@ -247,7 +246,7 @@ function ProjectPreview({ project }: { project: Project }) {
 }
 
 export function PortfolioGrid() {
-  const [activeCategoryId, setActiveCategoryId] = useState(portfolioCategories[1].id)
+  const [activeCategoryId, setActiveCategoryId] = useState(portfolioCategories[0].id)
 
   const activeCategory = useMemo(
     () =>
@@ -311,9 +310,24 @@ export function PortfolioGrid() {
           </div>
         </div>
 
-        <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          key={activeCategory.id}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.08 } },
+          }}
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
           {activeCategory.projects.map((project) => (
-            <StaggerItem key={`${activeCategory.id}-${project.title}`}>
+            <motion.div
+              key={`${activeCategory.id}-${project.title}`}
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+              }}
+            >
               <motion.article
                 whileHover={{ y: -4 }}
                 className="group flex h-full flex-col overflow-hidden rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm transition-colors hover:border-primary/40"
@@ -411,9 +425,9 @@ export function PortfolioGrid() {
                   </div>
                 </div>
               </motion.article>
-            </StaggerItem>
+            </motion.div>
           ))}
-        </StaggerContainer>
+        </motion.div>
       </div>
     </section>
   )
