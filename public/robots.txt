@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /private/
+
+Sitemap: https://www.visualcraftagency.com/sitemap.xml
+Host: https://www.visualcraftagency.com
