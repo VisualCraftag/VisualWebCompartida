@@ -28,7 +28,7 @@ export function AboutMission() {
               </span>
               <h2 className="text-3xl font-bold text-foreground sm:text-4xl text-balance">
                 {"Nacimos para digitalizar la "}
-                <span className="text-primary">gastronomia argentina</span>
+                <span className="text-highlight">gastronomia argentina</span>
               </h2>
               <div className="flex flex-col gap-4 text-muted-foreground leading-relaxed">
                 <p>

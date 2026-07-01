@@ -16,7 +16,7 @@ export function CtaSection() {
         <FadeIn>
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl text-balance">
             {"Listo para llevar tu restaurante al "}
-            <span className="text-primary">siguiente nivel?</span>
+            <span className="text-highlight">siguiente nivel?</span>
           </h2>
         </FadeIn>
         <FadeIn delay={0.1}>

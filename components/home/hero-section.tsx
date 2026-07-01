@@ -36,9 +36,9 @@ export function HeroSection() {
 
             <FadeIn delay={0.1}>
               <h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl text-balance">
-                <span className="text-primary">VisualCraft<br></br></span>
+                <span className="text-highlight">VisualCraft<br></br></span>
                 {"Transforma "}<br></br>
-                <span className="text-primary">tu restaurante</span>
+                <span className="text-highlight">tu restaurante</span>
                 {" en digital"}
               </h1>
             </FadeIn>

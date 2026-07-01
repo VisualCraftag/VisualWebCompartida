@@ -12,7 +12,7 @@ export function AboutCta() {
         <FadeIn>
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl text-balance">
             {"Trabajemos "}
-            <span className="text-primary">juntos</span>
+            <span className="text-highlight">juntos</span>
           </h2>
         </FadeIn>
         <FadeIn delay={0.1}>

@@ -83,7 +83,7 @@ export function ContactSection() {
             <div className="flex flex-col gap-6">
               <h2 className="text-3xl font-bold text-foreground sm:text-4xl text-balance">
                 {"Contactate con "}
-                <span className="text-primary">nosotros</span>
+                <span className="text-highlight">nosotros</span>
               </h2>
               <p className="text-muted-foreground leading-relaxed">
                 {"Completa el formulario y recibi un presupuesto personalizado en menos de 24 horas. Sin compromisos."}

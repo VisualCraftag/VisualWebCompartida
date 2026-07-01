@@ -27,7 +27,7 @@ export function SectionHeader({
       )}
       <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl text-balance">
         {title}{" "}
-        {highlight && <span className="text-primary">{highlight}</span>}
+        {highlight && <span className="text-highlight">{highlight}</span>}
       </h2>
       {description && (
         <p className="max-w-2xl text-muted-foreground leading-relaxed text-pretty">
