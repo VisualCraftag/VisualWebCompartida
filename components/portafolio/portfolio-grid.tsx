@@ -1,156 +1,416 @@
 "use client"
 
 import Image from "next/image"
-import { ExternalLink } from "lucide-react"
+import { ArrowUpRight, CheckCircle2, ExternalLink, FileText, Sparkles } from "lucide-react"
+import { useMemo, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { StaggerContainer, StaggerItem } from "@/components/motion-wrapper"
 import { motion } from "framer-motion"
 
-const projects = [
+type Project = {
+  image?: string
+  previewUrl?: string
+  title: string
+  type: string
+  url: string
+  description: string
+  features: string[]
+  techs: string[]
+  highlight?: string
+  secondaryAction?: {
+    label: string
+    url: string
+  }
+}
+
+type PortfolioCategory = {
+  id: string
+  label: string
+  eyebrow: string
+  intro: string
+  projects: Project[]
+}
+
+const basicProjects: Project[] = [
   {
     image: "/images/portfolio/parrilla.jpg",
     title: "Parrilla Don Pepe",
-    type: "Web Completa",
+    type: "Web Basica",
     url: "https://donpepeparrilla.vercel.app/",
     description:
-      "Sitio web completo con reservas online y menu digital interactivo para una parrilla tradicional.",
-    features: ["Reservas Online", "Menu Digital", "Galeria de Fotos", "Integracion WhatsApp"],
-    techs: ["Next.js", "Tailwind CSS", "Sistema de Reservas"],
+      "Sitio institucional para mostrar la propuesta, los platos principales y el acceso rapido a reservas.",
+    features: ["Reservas online", "Menu digital", "Galeria de fotos", "WhatsApp visible"],
+    techs: ["Next.js", "Tailwind CSS", "Reservas"],
   },
   {
     image: "/images/portfolio/pizzeria.jpg",
     title: "Pizzeria Mario",
-    type: "E-commerce",
+    type: "Web Basica",
     url: "https://pizzeria-don-mario.vercel.app/",
     description:
-      "E-commerce con sistema de pedidos online y seguimiento en tiempo real de entregas.",
-    features: ["Pedidos Online", "Pagos Seguros", "Tracking de Delivery", "Panel Admin"],
-    techs: ["Next.js", "Sistema de Pedidos"],
+      "Experiencia simple para presentar productos, promociones y un camino directo al pedido.",
+    features: ["Pedidos online", "Promociones", "Delivery", "Panel admin"],
+    techs: ["Next.js", "Pedidos"],
   },
   {
     image: "/images/portfolio/cafe.jpg",
     title: "Cafe Central",
-    type: "Landing Page",
+    type: "Web Basica",
     url: "https://cafe-central-visualcraft.vercel.app/",
     description:
-      "Landing page moderna con menu de cafeteria y sistema de suscripcion para cafe del mes.",
-    features: ["Diseno Minimalista", "Menu Digital", "Suscripciones", "Blog de Cafe"],
-    techs: ["React", "Tailwind CSS", "Subscripciones"],
+      "Landing orientada a cafeteria con carta, historia de marca y secciones faciles de recorrer.",
+    features: ["Diseno minimalista", "Menu digital", "Suscripciones", "Blog"],
+    techs: ["React", "Tailwind CSS"],
   },
   {
     image: "/images/portfolio/sushi.jpg",
     title: "Sushi Zen",
-    type: "E-commerce",
+    type: "Web Basica",
     url: "https://sushi-zen-e-commerce-visualcraft.vercel.app/",
     description:
-      "Plataforma completa con catalogo de productos, carrito de compras y sistema de puntos.",
-    features: ["Catalogo Completo", "Sistema de Puntos", "Ofertas Especiales"],
-    techs: ["Next.js", "Sistema de Puntos", "Carrito"],
+      "Catalogo visual para gastronomia con productos destacados y estructura preparada para venta.",
+    features: ["Catalogo", "Sistema de puntos", "Ofertas", "Carrito"],
+    techs: ["Next.js", "Carrito"],
   },
   {
     image: "/images/portfolio/bodegon.jpg",
     title: "Bodegon del Tano",
-    type: "Web Completa",
+    type: "Web Basica",
     url: "https://bodegon-del-tano.vercel.app/",
     description:
-      "Sitio web clasico con galeria de platos, historia del restaurante y reservas telefonicas.",
-    features: ["Galeria de Platos", "Historia", "Reservas", "Eventos Especiales"],
-    techs: ["Next.js", "Galeria", "Formularios"],
+      "Web clasica para reforzar presencia online, mostrar platos y facilitar el contacto.",
+    features: ["Galeria de platos", "Historia", "Reservas", "Eventos"],
+    techs: ["Next.js", "Formularios"],
   },
   {
     image: "/images/portfolio/cerveceria.jpg",
     title: "Cerveceria Hop",
-    type: "Web Completa",
+    type: "Web Basica",
     url: "https://cerveceria-hop.vercel.app/",
     description:
-      "Web interactiva con carta de cervezas artesanales, eventos y sistema de reservas para grupos.",
-    features: ["Carta de Cervezas", "Eventos", "Reservas Grupales", "Newsletter"],
-    techs: ["Next.js", "Calendario Eventos", "Reservas Grupales"],
+      "Sitio visual para cerveceria con carta, eventos y reservas para grupos.",
+    features: ["Carta de cervezas", "Eventos", "Reservas grupales", "Newsletter"],
+    techs: ["Next.js", "Calendario"],
   },
 ]
 
+const portfolioCategories: PortfolioCategory[] = [
+  {
+    id: "webs-basicas",
+    label: "Webs basicas",
+    eyebrow: "Base visual",
+    intro:
+      "Proyectos iniciales que sirven como referencia de presencia online, estructura comercial y estilo gastronomico.",
+    projects: basicProjects,
+  },
+  {
+    id: "menus-digitales",
+    label: "Menus Digitales",
+    eyebrow: "Carta online",
+    intro:
+      "Cartas digitales pensadas para que el cliente explore rapido, encuentre lo que quiere y llegue al pedido sin friccion.",
+    projects: [
+      {
+        previewUrl: "https://reservas-portfolio-maxi-hrwz.vercel.app/",
+        title: "Menu y reservas integrado",
+        type: "Menu Digital",
+        url: "https://reservas-portfolio-maxi-hrwz.vercel.app/",
+        description:
+          "Experiencia con carta navegable y flujo de reserva en el mismo entorno, ideal para restaurantes con alta rotacion.",
+        features: ["Carta visual", "Reserva guiada", "Mobile first", "CTA directo"],
+        techs: ["Next.js", "UX Mobile", "Reservas"],
+        highlight: "Menu + conversion",
+      },
+      {
+        previewUrl: "https://menu-googgle-sheets.vercel.app/",
+        title: "Menu conectado a Sheets",
+        type: "Menu Digital",
+        url: "https://menu-googgle-sheets.vercel.app/",
+        description:
+          "Carta administrable desde Google Sheets para actualizar precios, platos y disponibilidad sin tocar codigo.",
+        features: ["Gestion simple", "Actualizacion rapida", "Categorias", "Sin panel complejo"],
+        techs: ["Google Sheets", "Next.js", "Automatizacion"],
+        highlight: "Editable por el equipo",
+      },
+    ],
+  },
+  {
+    id: "fidelizacion",
+    label: "Fidelizacion",
+    eyebrow: "Clientes recurrentes",
+    intro:
+      "Sistemas para transformar visitas sueltas en clientes que vuelven, acumulan beneficios y se mantienen cerca de la marca.",
+    projects: [
+      {
+        previewUrl: "https://fidelizacion-portfolio.vercel.app/",
+        title: "Sistema de fidelizacion",
+        type: "Fidelizacion",
+        url: "https://fidelizacion-portfolio.vercel.app/",
+        description:
+          "Programa digital para sumar puntos, comunicar beneficios y darle al negocio una herramienta simple de retencion.",
+        features: ["Puntos y beneficios", "Perfil de cliente", "Promos", "Experiencia mobile"],
+        techs: ["Next.js", "CRM liviano", "Retencion"],
+        highlight: "Pensado para volver",
+      },
+    ],
+  },
+  {
+    id: "reservas",
+    label: "Sistema de reservas",
+    eyebrow: "Mesas organizadas",
+    intro:
+      "Flujos de reserva claros para bajar mensajes manuales, ordenar la demanda y mejorar la experiencia antes de la visita.",
+    projects: [
+      {
+        previewUrl: "https://reservas-portfolio-maxi-hrwz.vercel.app/",
+        title: "Reservas online para restaurantes",
+        type: "Reservas",
+        url: "https://reservas-portfolio-maxi-hrwz.vercel.app/",
+        description:
+          "Sistema centrado en disponibilidad, confirmacion y llamados a la accion visibles para convertir interesados en mesas.",
+        features: ["Flujo simple", "Datos de reserva", "Confirmacion", "Diseno responsive"],
+        techs: ["Next.js", "Reservas", "Conversion"],
+        highlight: "Menos ida y vuelta",
+      },
+    ],
+  },
+  {
+    id: "reviews",
+    label: "Incentivo Resenas + diagnostico",
+    eyebrow: "Reputacion",
+    intro:
+      "Herramientas para incentivar resenas, detectar oportunidades de mejora y convertir la reputacion online en una ventaja.",
+    projects: [
+      {
+        previewUrl: "https://incntivo-rese-as.vercel.app/",
+        title: "Incentivo de resenas + diagnostico",
+        type: "Reputacion",
+        url: "https://incntivo-rese-as.vercel.app/",
+        description:
+          "Sistema para guiar al cliente hacia la resena y acompanarlo con un diagnostico accionable del estado digital.",
+        features: ["Incentivo guiado", "Diagnostico PDF", "Reputacion online", "Accion inmediata"],
+        techs: ["Next.js", "Google Reviews", "Diagnostico"],
+        highlight: "Mas prueba social",
+        secondaryAction: {
+          label: "Ver diagnostico",
+          url: "https://drive.google.com/file/d/1yTsAmkzCiGEWQJBxU0yExBxrQRlHJxtl/view?usp=sharing",
+        },
+      },
+    ],
+  },
+]
+
+const categoryCounts = portfolioCategories.reduce<Record<string, number>>((counts, category) => {
+  counts[category.id] = category.projects.length
+  return counts
+}, {})
+
 const badgeColors: Record<string, string> = {
-  "Web Completa": "bg-primary/20 text-primary border-primary/30",
-  "E-commerce": "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  "Landing Page": "bg-amber-500/20 text-amber-400 border-amber-500/30",
+  "Web Basica": "bg-primary/20 text-primary border-primary/30",
+  "Menu Digital": "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+  Fidelizacion: "bg-amber-500/20 text-amber-300 border-amber-500/30",
+  Reservas: "bg-sky-500/20 text-sky-300 border-sky-500/30",
+  Reputacion: "bg-rose-500/20 text-rose-300 border-rose-500/30",
+}
+
+function ProjectPreview({ project }: { project: Project }) {
+  if (project.previewUrl) {
+    return (
+      <div className="relative aspect-[16/10] overflow-hidden bg-secondary">
+        <iframe
+          src={project.previewUrl}
+          title={`Preview de ${project.title}`}
+          loading="lazy"
+          className="h-[200%] w-[200%] origin-top-left scale-50 border-0"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+        <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/10 bg-background/80 px-3 py-1 text-xs font-medium text-foreground backdrop-blur">
+          <span className="size-2 rounded-full bg-emerald-400" />
+          Preview real
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative aspect-[16/10] overflow-hidden">
+      <Image
+        src={project.image || "/placeholder.jpg"}
+        alt={project.title}
+        fill
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+    </div>
+  )
 }
 
 export function PortfolioGrid() {
+  const [activeCategoryId, setActiveCategoryId] = useState(portfolioCategories[1].id)
+
+  const activeCategory = useMemo(
+    () =>
+      portfolioCategories.find((category) => category.id === activeCategoryId) ||
+      portfolioCategories[0],
+    [activeCategoryId]
+  )
+
   return (
     <section className="pb-20 lg:pb-28">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        <div className="mb-8 rounded-xl border border-border/50 bg-card/40 p-2 backdrop-blur-sm">
+          <div className="flex gap-2 overflow-x-auto">
+            {portfolioCategories.map((category) => {
+              const isActive = category.id === activeCategory.id
+
+              return (
+                <button
+                  key={category.id}
+                  type="button"
+                  onClick={() => setActiveCategoryId(category.id)}
+                  className={`flex min-w-fit items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                      : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground"
+                  }`}
+                >
+                  {category.label}
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs ${
+                      isActive
+                        ? "bg-white/20 text-primary-foreground"
+                        : "bg-secondary text-muted-foreground"
+                    }`}
+                  >
+                    {categoryCounts[category.id]}
+                  </span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="mb-8 flex flex-col justify-between gap-4 rounded-xl border border-border/50 bg-card/30 p-5 backdrop-blur-sm md:flex-row md:items-end">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <Sparkles className="size-3.5" />
+              {activeCategory.eyebrow}
+            </div>
+            <h2 className="text-2xl font-bold text-foreground md:text-3xl">
+              {activeCategory.label}
+            </h2>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+              {activeCategory.intro}
+            </p>
+          </div>
+          <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-secondary/50 px-3 py-2 text-sm text-muted-foreground">
+            <CheckCircle2 className="size-4 text-primary" />
+            {activeCategory.projects.length}{" "}
+            {activeCategory.projects.length === 1 ? "proyecto" : "proyectos"}
+          </div>
+        </div>
+
         <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <StaggerItem key={project.title}>
-              <motion.div
+          {activeCategory.projects.map((project) => (
+            <StaggerItem key={`${activeCategory.id}-${project.title}`}>
+              <motion.article
                 whileHover={{ y: -4 }}
                 className="group flex h-full flex-col overflow-hidden rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm transition-colors hover:border-primary/40"
               >
-                {/* Image */}
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
-                </div>
+                <ProjectPreview project={project} />
 
-                {/* Content */}
                 <div className="flex flex-1 flex-col p-5">
-                  <div className="mb-3 flex items-center justify-between gap-2">
-                    <h3 className="text-lg font-bold text-foreground">{project.title}</h3>
+                  <div className="mb-3 flex items-start justify-between gap-3">
+                    <div>
+                      {project.highlight ? (
+                        <p className="mb-1 text-xs font-medium text-primary">
+                          {project.highlight}
+                        </p>
+                      ) : null}
+                      <h3 className="text-lg font-bold leading-snug text-foreground">
+                        {project.title}
+                      </h3>
+                    </div>
                     <Badge
-                      className={`shrink-0 border text-xs ${badgeColors[project.type] || "bg-primary/20 text-primary border-primary/30"}`}
+                      className={`shrink-0 border text-xs ${
+                        badgeColors[project.type] ||
+                        "bg-primary/20 text-primary border-primary/30"
+                      }`}
                     >
                       {project.type}
                     </Badge>
                   </div>
 
-                  <p className="mb-4 text-sm text-muted-foreground leading-relaxed">
+                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
                     {project.description}
                   </p>
 
-                  <div className="mb-4">
-                    <p className="mb-2 text-xs font-semibold text-foreground">
-                      {"Caracteristicas:"}
-                    </p>
-                    <ul className="flex flex-col gap-1">
-                      {project.features.map((f) => (
-                        <li key={f} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                          <span className="size-1 rounded-full bg-primary" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="mb-4 grid grid-cols-2 gap-2">
+                    {project.features.slice(0, 4).map((feature) => (
+                      <div
+                        key={feature}
+                        className="flex min-h-10 items-center gap-2 rounded-lg border border-border/40 bg-secondary/35 px-3 py-2 text-xs text-muted-foreground"
+                      >
+                        <span className="size-1.5 shrink-0 rounded-full bg-primary" />
+                        {feature}
+                      </div>
+                    ))}
                   </div>
 
                   <div className="mt-auto">
-                    <p className="mb-2 text-xs font-semibold text-foreground">
-                      {"Tecnologias:"}
-                    </p>
                     <div className="mb-4 flex flex-wrap gap-1.5">
-                      {project.techs.map((t) => (
+                      {project.techs.map((tech) => (
                         <span
-                          key={t}
+                          key={tech}
                           className="rounded-md border border-border/50 bg-secondary/80 px-2 py-0.5 text-xs text-muted-foreground"
                         >
-                          {t}
+                          {tech}
                         </span>
                       ))}
                     </div>
 
-                    <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium">
-                      <a href={project.url} target="_blank" rel="noopener noreferrer">
-                        Ver Proyecto
-                        <ExternalLink className="ml-1.5 size-4" />
-                      </a>
-                    </Button>
+                    <div className="flex flex-col gap-2 sm:flex-row">
+                      <Button
+                        asChild
+                        className="flex-1 bg-primary font-medium text-primary-foreground hover:bg-primary/90"
+                      >
+                        <a href={project.url} target="_blank" rel="noopener noreferrer">
+                          Visitar
+                          <ExternalLink className="ml-1.5 size-4" />
+                        </a>
+                      </Button>
+                      {project.secondaryAction ? (
+                        <Button
+                          asChild
+                          variant="outline"
+                          className="flex-1 border-border/70 bg-secondary/60 text-foreground hover:bg-secondary"
+                        >
+                          <a
+                            href={project.secondaryAction.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <FileText className="mr-1.5 size-4" />
+                            {project.secondaryAction.label}
+                          </a>
+                        </Button>
+                      ) : (
+                        <Button
+                          asChild
+                          variant="outline"
+                          className="hidden border-border/70 bg-secondary/60 text-foreground hover:bg-secondary sm:inline-flex sm:w-12 sm:px-0"
+                          aria-label={`Abrir ${project.title}`}
+                        >
+                          <a href={project.url} target="_blank" rel="noopener noreferrer">
+                            <ArrowUpRight className="size-4" />
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
             </StaggerItem>
           ))}
         </StaggerContainer>
