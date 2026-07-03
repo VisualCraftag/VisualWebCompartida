@@ -17,6 +17,7 @@ type Project = {
   features: string[]
   techs: string[]
   highlight?: string
+  ctaLabel?: string
   secondaryAction?: {
     label: string
     url: string
@@ -183,18 +184,25 @@ const portfolioCategories: PortfolioCategory[] = [
     projects: [
       {
         previewUrl: "https://incntivo-rese-as.vercel.app/",
-        title: "Incentivo de resenas + diagnostico",
+        title: "Incentivo de resenas",
         type: "Reputacion",
         url: "https://incntivo-rese-as.vercel.app/",
         description:
-          "Sistema para guiar al cliente hacia la resena y acompanarlo con un diagnostico accionable del estado digital.",
-        features: ["Incentivo guiado", "Diagnostico PDF", "Reputacion online", "Accion inmediata"],
-        techs: ["Next.js", "Google Reviews", "Diagnostico"],
+          "Web enfocada en guiar al cliente satisfecho hacia la resena y convertir esa accion en prueba social.",
+        features: ["Incentivo guiado", "Google Reviews", "Mobile first", "CTA directo"],
+        techs: ["Next.js", "Google Reviews", "Conversion"],
         highlight: "Mas prueba social",
-        secondaryAction: {
-          label: "Ver diagnostico",
-          url: "https://drive.google.com/file/d/1yTsAmkzCiGEWQJBxU0yExBxrQRlHJxtl/view?usp=sharing",
-        },
+      },
+      {
+        title: "Diagnostico digital",
+        type: "Diagnostico",
+        url: "https://drive.google.com/file/d/1yTsAmkzCiGEWQJBxU0yExBxrQRlHJxtl/view?usp=sharing",
+        description:
+          "Analisis en PDF para entender el estado digital del negocio, detectar puntos de mejora y priorizar acciones.",
+        features: ["Analisis PDF", "Oportunidades", "Plan de accion", "Lectura ejecutiva"],
+        techs: ["Diagnostico", "Auditoria", "PDF"],
+        highlight: "Documento accionable",
+        ctaLabel: "Ver diagnostico",
       },
     ],
   },
@@ -211,6 +219,7 @@ const badgeColors: Record<string, string> = {
   Fidelizacion: "bg-amber-500/20 text-amber-300 border-amber-500/30",
   Reservas: "bg-sky-500/20 text-sky-300 border-sky-500/30",
   Reputacion: "bg-rose-500/20 text-rose-300 border-rose-500/30",
+  Diagnostico: "bg-violet-500/20 text-violet-300 border-violet-500/30",
 }
 
 function ProjectPreview({ project }: { project: Project }) {
@@ -232,15 +241,35 @@ function ProjectPreview({ project }: { project: Project }) {
     )
   }
 
+  if (project.image) {
+    return (
+      <div className="relative aspect-[16/10] overflow-hidden">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+      </div>
+    )
+  }
+
   return (
-    <div className="relative aspect-[16/10] overflow-hidden">
-      <Image
-        src={project.image || "/placeholder.jpg"}
-        alt={project.title}
-        fill
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+    <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-secondary/80">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(124,58,237,0.28),transparent_42%)]" />
+      <div className="relative flex h-28 w-24 flex-col justify-between rounded-lg border border-primary/30 bg-card/80 p-4 shadow-2xl shadow-primary/10">
+        <FileText className="size-8 text-primary" />
+        <div className="space-y-1.5">
+          <span className="block h-1.5 rounded-full bg-muted-foreground/40" />
+          <span className="block h-1.5 w-4/5 rounded-full bg-muted-foreground/30" />
+          <span className="block h-1.5 w-2/3 rounded-full bg-muted-foreground/20" />
+        </div>
+      </div>
+      <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/10 bg-background/80 px-3 py-1 text-xs font-medium text-foreground backdrop-blur">
+        <FileText className="size-3.5 text-primary" />
+        Diagnostico PDF
+      </div>
     </div>
   )
 }
@@ -390,7 +419,7 @@ export function PortfolioGrid() {
                         className="flex-1 bg-primary font-medium text-primary-foreground hover:bg-primary/90"
                       >
                         <a href={project.url} target="_blank" rel="noopener noreferrer">
-                          Visitar
+                          {project.ctaLabel || "Visitar"}
                           <ExternalLink className="ml-1.5 size-4" />
                         </a>
                       </Button>
