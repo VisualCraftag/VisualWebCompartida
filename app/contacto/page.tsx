@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Contactanos para solicitar un presupuesto personalizado. Te respondemos en menos de 24 horas.",
 }
 
-export default function ContactoPage() {
+export default function  ContactoPage() {
   return (
     <>
       <ContactHero />

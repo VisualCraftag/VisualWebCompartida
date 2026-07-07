@@ -5,7 +5,7 @@ import { ServicesCta } from "@/components/servicios/services-cta"
 
 export const metadata: Metadata = {
   title: "Servicios | VisualCraft",
-  description: "Pagina web profesional, menu digital con QR, resenas automatizadas y mas. Soluciones digitales para restaurantes.",
+  description: "Pagina web profesional, menu digital con QR, reseñas automatizadas y mas. Soluciones digitales para restaurantes.",
 }
 
 export default function ServiciosPage() {

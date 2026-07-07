@@ -113,7 +113,7 @@ const portfolioCategories: PortfolioCategory[] = [
     projects: [
       {
         previewUrl: "https://reservas-portfolio-maxi-hrwz.vercel.app/",
-        title: "Menu y reservas integrado",
+        title: "Menu Panel Admin",
         type: "Menu Digital",
         url: "https://reservas-portfolio-maxi-hrwz.vercel.app/",
         description:
@@ -176,23 +176,32 @@ const portfolioCategories: PortfolioCategory[] = [
     ],
   },
   {
-    id: "reviews",
-    label: "Incentivo Resenas + diagnostico",
+    id: "incentivos-resenas",
+    label: "Incentivo Reseñas",
     eyebrow: "Reputacion",
     intro:
-      "Herramientas para incentivar resenas, detectar oportunidades de mejora y convertir la reputacion online en una ventaja.",
+      "Herramientas para incentivar reseñas y convertir la reputacion online en una ventaja.",
     projects: [
       {
         previewUrl: "https://incntivo-rese-as.vercel.app/",
-        title: "Incentivo de resenas",
+        title: "Incentivo de reseñas",
         type: "Reputacion",
         url: "https://incntivo-rese-as.vercel.app/",
         description:
-          "Web enfocada en guiar al cliente satisfecho hacia la resena y convertir esa accion en prueba social.",
+          "Web enfocada en guiar al cliente satisfecho hacia la reseña y convertir esa accion en prueba social.",
         features: ["Incentivo guiado", "Google Reviews", "Mobile first", "CTA directo"],
         techs: ["Next.js", "Google Reviews", "Conversion"],
         highlight: "Mas prueba social",
       },
+    ],
+  },
+  {
+    id: "diagnostico",
+    label: "Diagnostico",
+    eyebrow: "Analisis digital",
+    intro:
+      "Análisis digital para detectar oportunidades de mejora y priorizar acciones estratégicas.",
+    projects: [
       {
         title: "Diagnostico digital",
         type: "Diagnostico",
