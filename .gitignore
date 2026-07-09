@@ -3,9 +3,20 @@ __v0_runtime_loader.js
 __v0_devtools.tsx
 __v0_jsx-dev-runtime.ts
 
-# Common ignores
+# Dependencies
 node_modules/
+
+# Next.js
 .next/
+out/
+
+# Env files
 .env*.local
+
+# Local logs
+*.log
+dev-server.*.log
+
+# OS/editor
 .DS_Store
-.vercel
+.vercel/
