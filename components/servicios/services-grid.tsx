@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Globe, QrCode, Star, CalendarCheck, ShoppingCart, MessageCircle, HandCoins, TicketPercent, ClipboardCheck  } from "lucide-react"
+import { ArrowRight, Globe, QrCode, Star, CalendarCheck, HandCoins, TicketPercent, ClipboardCheck  } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { StaggerContainer, StaggerItem } from "@/components/motion-wrapper"
 import { motion } from "framer-motion"
@@ -49,21 +49,6 @@ const services = [
       "Notificaciones por email",
       "Panel de administracion",
       "Integracion con WhatsApp",
-    ],
-    popular: false,
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce / Pedidos Online",
-    description:
-      "Plataforma de pedidos online con carrito de compras, pagos seguros y tracking de delivery en tiempo real.",
-    features: [
-      "Catalogo de productos",
-      "Carrito de compras",
-      "Pagos seguros (Mercado Pago)",
-      "Tracking de delivery",
-      "Gestion de pedidos",
-      "Ofertas y descuentos",
     ],
     popular: false,
   },

@@ -178,7 +178,6 @@ export function ContactSection() {
                         <SelectItem value="Pagina Web Profesional">Pagina Web Profesional</SelectItem>
                         <SelectItem value="Menu Digital con QR">Menu Digital con QR</SelectItem>
                         <SelectItem value="Reservas Online">Reservas Online</SelectItem>
-                        <SelectItem value="E-commerce / Pedidos Online">E-commerce / Pedidos Online</SelectItem>
                         <SelectItem value="Otro">Otro</SelectItem>
                       </SelectContent>
                     </Select>

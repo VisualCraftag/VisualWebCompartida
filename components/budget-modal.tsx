@@ -111,7 +111,6 @@ export function BudgetModal() {
                   <SelectItem value="web">Pagina Web Profesional</SelectItem>
                   <SelectItem value="menu">Menu Digital con QR</SelectItem>
                   <SelectItem value="reservas">Reservas Online</SelectItem>
-                  <SelectItem value="ecommerce">E-commerce</SelectItem>
                   <SelectItem value="otro">Otro</SelectItem>
                 </SelectContent>
               </Select>

@@ -7,10 +7,7 @@ import {
   ArrowLeft,
   Globe,
   QrCode,
-  Star,
   CalendarCheck,
-  ShoppingCart,
-  MessageCircle,
   ClipboardCheck,
   TicketPercent,
   HandCoins
@@ -68,21 +65,6 @@ const services = [
       "Notificaciones por email",
       "Panel de administracion",
       "Integracion con WhatsApp",
-    ],
-    popular: false,
-  },
-  {
-    icon: ShoppingCart,
-    title: "E-commerce / Pedidos Online",
-    description:
-      "Plataforma de pedidos online con carrito de compras, pagos seguros y tracking de delivery en tiempo real.",
-    features: [
-      "Catalogo de productos",
-      "Carrito de compras",
-      "Pagos seguros (Mercado Pago)",
-      "Tracking de delivery",
-      "Gestion de pedidos",
-      "Ofertas y descuentos",
     ],
     popular: false,
   },
