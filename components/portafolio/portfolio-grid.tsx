@@ -153,6 +153,17 @@ const portfolioCategories: PortfolioCategory[] = [
         techs: ["Next.js", "CRM liviano", "Retencion"],
         highlight: "Pensado para volver",
       },
+      {
+        image: "/images/portfolio/bistro-central-fidelizacion-preview.png",
+        title: "Bistro Central",
+        type: "Fidelizacion",
+        url: "https://bistro-central-xi.vercel.app/",
+        description:
+          "Club de beneficios mobile para que los clientes acumulen puntos, consulten su codigo y canjeen premios.",
+        features: ["Puntos", "Codigo de socio", "Canjes", "Mobile first"],
+        techs: ["Next.js", "Fidelizacion", "Beneficios"],
+        highlight: "Club de beneficios",
+      },
     ],
   },
   {
@@ -172,6 +183,17 @@ const portfolioCategories: PortfolioCategory[] = [
         features: ["Flujo simple", "Datos de reserva", "Confirmacion", "Diseno responsive"],
         techs: ["Next.js", "Reservas", "Conversion"],
         highlight: "Menos ida y vuelta",
+      },
+      {
+        previewUrl: "https://alma-bistro-ochre.vercel.app/",
+        title: "Alma Bistro",
+        type: "Reservas",
+        url: "https://alma-bistro-ochre.vercel.app/",
+        description:
+          "Pagina con experiencia de reservas para restaurante, enfocada en una presentacion elegante y un camino claro hacia la mesa.",
+        features: ["Reserva online", "Propuesta visual", "CTA directo", "Responsive"],
+        techs: ["Next.js", "Reservas", "UX Mobile"],
+        highlight: "Reserva con presencia",
       },
     ],
   },
@@ -203,6 +225,7 @@ const portfolioCategories: PortfolioCategory[] = [
       "Análisis digital para detectar oportunidades de mejora y priorizar acciones estratégicas.",
     projects: [
       {
+        image: "/images/portfolio/diagnostico-resenas-preview.png",
         title: "Diagnostico digital",
         type: "Diagnostico",
         url: "https://drive.google.com/file/d/1yTsAmkzCiGEWQJBxU0yExBxrQRlHJxtl/view?usp=sharing",
