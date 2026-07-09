@@ -103,10 +103,9 @@ export function ServicesGrid() {
     <section className="pb-20 lg:pb-28">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <StaggerContainer className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <StaggerItem
               key={service.title}
-              className={index === services.length - 1 ? "lg:col-start-2" : ""}
             >
               <motion.div
                 whileHover={{ y: -4 }}
